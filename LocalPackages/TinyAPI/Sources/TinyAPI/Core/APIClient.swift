@@ -1,6 +1,5 @@
 import Foundation
 
-@MainActor
 public final class APIClient {
     private let configuration: APIConfiguration
     private let session: URLSession

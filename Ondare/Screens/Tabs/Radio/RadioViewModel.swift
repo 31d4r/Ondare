@@ -21,6 +21,7 @@ extension RadioView {
 
     class ViewModel: BaseViewModel, ObservableObject {
         @Published private(set) var state = RadioViewState()
+        private var networkClient = NetworkClient()
     }
 }
 
@@ -42,7 +43,7 @@ extension RadioView.ViewModel {
         switch action {
         case .fetchTopStations(limit: let limit):
             let call = FetchTopStationsCall(limit: limit)
-            let result = await NetworkClient.shared.execute(call)
+            let result = await networkClient.execute(call)
 
             switch result {
             case .success(let response):
