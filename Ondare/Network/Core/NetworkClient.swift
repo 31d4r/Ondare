@@ -10,10 +10,7 @@ import TinyAPI
 
 // MARK: - Network Client
 
-@MainActor
 class NetworkClient {
-    static let shared = NetworkClient()
-
     private let apiClient: APIClient
 
     init() {

@@ -47,6 +47,7 @@ extension DiscoverView {
 
     class ViewModel: BaseViewModel, ObservableObject {
         @Published private(set) var state = DiscoverViewState()
+        private var networkClient = NetworkClient()
     }
 }
 
@@ -87,7 +88,7 @@ extension DiscoverView.ViewModel {
             state.isLoading = true
 
             let call = FetchStationsCall(offset: offset, limit: limit)
-            let result = await NetworkClient.shared.execute(call)
+            let result = await networkClient.execute(call)
 
             switch result {
             case .success(let response):
@@ -131,7 +132,7 @@ extension DiscoverView.ViewModel {
             guard let selectedRegion = DatabaseManager.shared.fetchAllSelectedRegions().first else { return }
 
             let call = FetchStationsByCountryCall(countryCode: selectedRegion.iso3166_1)
-            let result = await NetworkClient.shared.execute(call)
+            let result = await networkClient.execute(call)
 
             switch result {
             case .success(let response):

@@ -32,6 +32,7 @@ extension SettingsRegionView {
         weak var navDelegate: SettingsRegionNavDelegate?
 
         @Published private(set) var state = SettingsRegionViewState()
+        private var networkClient = NetworkClient()
 
         var showBackButton = false
     }
@@ -68,7 +69,7 @@ extension SettingsRegionView.ViewModel {
         switch action {
         case .fetchStationCountries:
             let call = FetchCountriesCall()
-            let result = await NetworkClient.shared.execute(call)
+            let result = await networkClient.execute(call)
 
             switch result {
             case .success(let response):
